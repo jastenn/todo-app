@@ -20,6 +20,7 @@
 
 <script>
 import { ref } from '@vue/reactivity'
+import {storeDataToLs, getDataToLs} from './composites/storage'
 
 import Header from './components/TheHeader.vue'
 import Input from './components/TodoInput.vue'
@@ -31,15 +32,30 @@ import { onMounted, watch } from '@vue/runtime-core'
 export default {
   name: 'App',
   components: { Header, Input, TaskItems},
+
   setup() {
-    const isDarkTheme = ref(true)
-    const taskListData = ref([
-      {task: 'Walk the Dog', id: 1, isComplete: false},
-      {task: 'Learn Vue', id: 2, isComplete: true},
-      {task: 'Live Long', id: 3, isComplete: true},
-      {task: 'Nde ko alam', id: 4, isComplete: false}
-    ])
+    const isDarkTheme = ref(false)
+    const taskListData = ref(null)
+    // [
+    //   {task: 'Walk the Dog', id: 1, isComplete: false},
+    //   {task: 'Learn Vue', id: 2, isComplete: true},
+    //   {task: 'Live Long', id: 3, isComplete: true},
+    //   {task: 'Nde ko alam', id: 4, isComplete: false}
+    // ]
     const displayedTaskList = ref(null)
+
+    const currentSelectedOption = ref('all')
+    
+    taskListData.value = getDataToLs()._value
+    displayedTaskList.value = taskListData.value
+    if(new Date().getHours() > 19 || new Date().getHours() < 4) isDarkTheme.value = true
+
+    if(isDarkTheme.value === true) {
+        app.dataset.theme = 'dark'
+    } else {
+      app.dataset.theme = 'light'
+    }
+
     const toggleTheme = () => {
       isDarkTheme.value = !isDarkTheme.value
       const app = document.getElementById('app')
@@ -53,17 +69,16 @@ export default {
         app.classList.remove('color-theme-in-transition')
       }, 1500)
     }
+
     const updateCompletedTask = (id) => {
       taskListData.value.map(task => {
         if(task.id !== id) return task;
         task.isComplete = !task.isComplete
       })
+
+      storeDataToLs(taskListData)
     }
-    const currentSelectedOption = ref('all')
-
-
     
-    displayedTaskList.value = taskListData.value
     
     watch(taskListData, () => {
       if(currentSelectedOption.value === 'all') displayedTaskList.value = taskListData.value
@@ -77,6 +92,7 @@ export default {
           return task.isComplete
         })
       }
+      storeDataToLs(taskListData)
     })
 
     
@@ -86,7 +102,11 @@ export default {
         isComplete,
         id: taskListData.value.length + 1
       }
-      taskListData.value = [taskItem, ...taskListData.value]
+      if(taskListData.length !== 0) {
+        taskListData.value = [taskItem, ...taskListData.value]
+      } else {
+        taskListData.value = [taskItem]
+      }
     }
 
     const removeItem = (id) => {
