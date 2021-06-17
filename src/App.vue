@@ -16,6 +16,10 @@
     @clearCompletedTasks="clearCompleted"
     />
   </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="https://github.com/jastenn">Justine Aviso</a>.
+  </div>
 </template>
 
 <script>
@@ -36,17 +40,12 @@ export default {
   setup() {
     const isDarkTheme = ref(false)
     const taskListData = ref(null)
-    // [
-    //   {task: 'Walk the Dog', id: 1, isComplete: false},
-    //   {task: 'Learn Vue', id: 2, isComplete: true},
-    //   {task: 'Live Long', id: 3, isComplete: true},
-    //   {task: 'Nde ko alam', id: 4, isComplete: false}
-    // ]
+    
     const displayedTaskList = ref(null)
 
     const currentSelectedOption = ref('all')
     
-    taskListData.value = getDataToLs()._value
+    taskListData.value = getDataToLs()
     displayedTaskList.value = taskListData.value
     if(new Date().getHours() > 19 || new Date().getHours() < 4) isDarkTheme.value = true
 
@@ -189,6 +188,7 @@ html { font-size: 100% }
 }
 
 #app[data-theme='dark']{
+  
   --app-background: hsl(235, 21%, 11%);
   --app-card-bg: hsl(235, 24%, 19%);
   --app-text: hsl(234, 39%, 85%); 
@@ -216,7 +216,8 @@ html { font-size: 100% }
   overflow: hidden;
 
   min-height: 100vh;
-
+  position: relative;
+  padding-bottom: 7rem;
   @media (min-width: 87.5rem) {
     background-size: 100%;
   }
@@ -230,6 +231,18 @@ html { font-size: 100% }
   max-width: 33.63rem;
   margin: 0 auto;
 }
+
+.attribution {
+  position:absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2%;
+  font-size: 11px; 
+  text-align: center;
+  line-height: 1.5;
+  min-width: 11.5rem;
+}
+.attribution a { color: var(--primary-blue-bright) }
 
 #app.color-theme-in-transition,
 #app.color-theme-in-transition *,

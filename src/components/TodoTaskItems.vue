@@ -1,7 +1,9 @@
 <template>
     <div class="todo">
         <ul class="todo__list" v-if="taskListData.length">
-            <p v-if="!taskList.length && taskListData.length">No Task To Show</p>
+            <p 
+            class="noTask"
+            v-if="!taskList.length && taskListData.length">No Task To Show</p>
             
             <TaskItem 
             v-for="task in taskList" :key="task.id"
@@ -83,5 +85,12 @@ export default {
     > *:not(:last-child) {
         border-bottom: 1px solid var(--app-borders);
     }
+}
+.noTask {
+    font-size: 1rem;
+    font-weight: 800;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    padding: 2rem 0;
+    text-align: center;
 }
 </style>
