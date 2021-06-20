@@ -1,11 +1,11 @@
 const storeDataToLs = (task) => {
-    localStorage.setItem('tasks', JSON.stringify(task))
+    localStorage.setItem('myTasks', JSON.stringify(task))
 }
 
 const getDataToLs = () => {
     let data;
-    if(localStorage.getItem('tasks')) {
-        data = JSON.parse(localStorage.getItem('tasks'))._value
+    if(localStorage.getItem('myTasks')) {
+        data = JSON.parse(localStorage.getItem('myTasks'))._value
     } else {
         data = []
     }
