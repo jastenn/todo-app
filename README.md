@@ -37,9 +37,9 @@ Users should be able to:
 ### Screenshot
 
 ![Desktop Dark Theme Preview](./screenshots/Desktop-dark.png)
-![Desktop Light Theme Preview](./screenshots/Desktop-ligth.png)
+![Desktop Light Theme Preview](./screenshots/Desktop-light.png)
 ![Mobile Dark Theme Preview](./screenshots/mobile-dark.png)
-![Mobile Light Theme Preview](./screenshots/mobile-ligth.png)
+![Mobile Light Theme Preview](./screenshots/mobile-light.png)
 
 ### Links
 
